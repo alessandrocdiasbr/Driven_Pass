@@ -68,7 +68,7 @@ export async function updateCredential(
     throw unauthorizedError('This credential does not belong to you');
   }
   
-  // Check if the title already exists but isn't the current credential
+  
   if (credential.title !== credentialData.title) {
     const existingCredential = await credentialRepository.findCredentialByTitle(
       userId, 
