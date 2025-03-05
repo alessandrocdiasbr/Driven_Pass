@@ -4,16 +4,15 @@
   "description": "API para gerenciamento de credenciais",
   "main": "dist/server.js",
   "scripts": {
-    "build": "tsc",
-    "start": "npm run migrate:run &&node dist/server.js",
+    "build": "tsc && npm run copy-prisma",
+    "copy-prisma": "if not exist \"dist\\prisma\" mkdir dist\\prisma && copy prisma\\schema.prisma dist\\prisma\\ && copy prisma\\seed.ts dist\\prisma\\",
+    "start": "npm run migration:run && npm run seed &&node dist/server.js",
     "dev": "nodemon src/server.ts",
-    "migrate:run": "prisma migrate deploy",
-    "prisma:migrate": "prisma migrate dev",
-    "prisma:seed": "prisma db seed",
-    "prisma:studio": "prisma studio"
+    "migration:run": "prisma migrate deploy",
+    "seed": "prisma db seed"
   },
   "prisma": {
-    "seed": "tsx prisma/seed.ts"
+    "seed": "ts-node prisma/seed.ts"
   },
   "keywords": [
     "password-manager",
@@ -37,6 +36,7 @@
     "@types/express": "^4.17.17",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "^20.4.4",
+    "copyfiles": "^2.4.1",
     "nodemon": "^3.0.1",
     "prisma": "^5.22.0",
     "ts-node": "^10.9.1",
