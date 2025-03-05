@@ -5,7 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc && npm run copy-prisma",
-    "copy-prisma": "if not exist \"dist\\prisma\" mkdir dist\\prisma && copy prisma\\schema.prisma dist\\prisma\\ && copy prisma\\seed.ts dist\\prisma\\",
+    "copy-prisma": "mkdir -p dist/prisma && cp -r prisma/* dist/prisma/",
     "start": "npm run migration:run && npm run seed &&node dist/server.js",
     "dev": "nodemon src/server.ts",
     "migration:run": "prisma migrate deploy",
